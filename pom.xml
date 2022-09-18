@@ -8,11 +8,11 @@
 		<version>2.7.3</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.DevOps2022</groupId>
-	<artifactId>jobopeningservice</artifactId>
+	<groupId>com.profilemanagement</groupId>
+	<artifactId>profilemanagement</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>jobopeningservice</name>
-	<description>Service responsible for job openings</description>
+	<name>profilemanagement</name>
+	<description>Profile management service</description>
 	<properties>
 		<java.version>11</java.version>
 	</properties>
