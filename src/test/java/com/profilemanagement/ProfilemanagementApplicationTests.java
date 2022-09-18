@@ -1,10 +1,10 @@
-package com.DevOps2022.jobopeningservice;
+package com.profilemanagement;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class JobopeningserviceApplicationTests {
+class ProfilemanagementApplicationTests {
 
 	@Test
 	void contextLoads() {

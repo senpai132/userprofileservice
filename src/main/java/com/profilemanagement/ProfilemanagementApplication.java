@@ -1,13 +1,13 @@
-package com.DevOps2022.jobopeningservice;
+package com.profilemanagement;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class JobopeningserviceApplication {
+public class ProfilemanagementApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(JobopeningserviceApplication.class, args);
+		SpringApplication.run(ProfilemanagementApplication.class, args);
 	}
 
 }
