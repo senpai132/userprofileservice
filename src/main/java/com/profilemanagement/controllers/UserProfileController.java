@@ -30,9 +30,15 @@ public class UserProfileController {
     private UserProfileMapper userProfileMapper;
     
     @GetMapping("/find/{searchCriteria}")
-    public ResponseEntity<List<UserProfileDTO>> findUserProfile(@PathVariable String searchCriteria) {         
+    public ResponseEntity<List<UserProfileDTO>> findAllProfiles(@PathVariable String searchCriteria) {         
         return new ResponseEntity<List<UserProfileDTO>>(userProfileMapper.toDtoList(
             userProfileService.searchProfiles(searchCriteria)), HttpStatus.OK);
+    }
+
+    @GetMapping("/findpubliconly/{searchCriteria}")
+    public ResponseEntity<List<UserProfileDTO>> findPublicProfiles(@PathVariable String searchCriteria) {         
+        return new ResponseEntity<List<UserProfileDTO>>(userProfileMapper.toDtoList(
+            userProfileService.searchPublicProfiles(searchCriteria)), HttpStatus.OK);
     }
 
     @PostMapping("/add")

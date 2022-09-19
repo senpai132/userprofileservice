@@ -37,6 +37,18 @@ public class UserProfileService {
         return foundUsers;
     }
 
+    public List<UserProfile> searchPublicProfiles(String searchCriteria) {
+        List<UserProfile> allUserProfiles = userProfileRepository.findAll();
+        List<UserProfile> foundUsers = new ArrayList<UserProfile>();
+
+        for(UserProfile el : allUserProfiles) {
+            if(el.getUsername().toLowerCase().contains(searchCriteria.toLowerCase()) && el.getVisibility()==0)
+                foundUsers.add(el);
+        }
+
+        return foundUsers;
+    }
+
     public String addUserProfile(UserProfile userprofile) {
         if(userProfileRepository.findByUsername(userprofile.getUsername()) != null) {
             return "Error: Username already exists";
