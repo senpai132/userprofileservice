@@ -49,6 +49,17 @@ public class UserProfileService {
         return foundUsers;
     }
 
+    public List<String> retreiveAllPublicProfiles() {
+        List<UserProfile> allUserProfiles = userProfileRepository.findByVisibility(0);
+        List<String> foundUsers = new ArrayList<String>();
+
+        for(UserProfile el : allUserProfiles) {
+            foundUsers.add(el.getUsername());
+        }
+
+        return foundUsers;
+    }
+
     public String addUserProfile(UserProfile userprofile) {
         if(userProfileRepository.findByUsername(userprofile.getUsername()) != null) {
             return "Error: Username already exists";

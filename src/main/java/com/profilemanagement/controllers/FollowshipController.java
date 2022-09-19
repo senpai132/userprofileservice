@@ -1,5 +1,6 @@
 package com.profilemanagement.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import com.profilemanagement.helper.dto.FollowResponseDTO;
 import com.profilemanagement.helper.dto.ProfileDetailsDTO;
 import com.profilemanagement.helper.dto.UserProfileDTO;
 import com.profilemanagement.helper.mappers.UserProfileMapper;
+import com.profilemanagement.model.UserProfile;
 import com.profilemanagement.services.FollowshipService;
 
 @RestController
@@ -53,6 +55,17 @@ public class FollowshipController {
     public ResponseEntity<List<UserProfileDTO>> returnFollowedUsers(@PathVariable String initiator) {         
         return new ResponseEntity<>(userProfileMapper.toDtoList(followshipService.findAllFollowedUsers(initiator)), 
             HttpStatus.OK);        
+    }
+
+    @GetMapping("/findallfollowedusernames/{username}")
+    public ResponseEntity<List<String>> findAllPublicProfiles(@PathVariable String username) {
+        List<UserProfile> users = followshipService.findAllFollowedUsers(username);
+        List<String> result = new ArrayList<>();
+        for(UserProfile user : users){
+            result.add(user.getUsername());
+        }
+        
+        return new ResponseEntity<List<String>>(result, HttpStatus.OK);
     }
 
     @PutMapping("/follow/{initiator}")
