@@ -32,7 +32,7 @@ public class UserProfileController {
     @GetMapping("/find/{searchCriteria}")
     public ResponseEntity<List<UserProfileDTO>> findUserProfile(@PathVariable String searchCriteria) {         
         return new ResponseEntity<List<UserProfileDTO>>(userProfileMapper.toDtoList(
-            userProfileService.searchPublicProfiles(searchCriteria)), HttpStatus.OK);        
+            userProfileService.searchProfiles(searchCriteria)), HttpStatus.OK);
     }
 
     @PostMapping("/add")

@@ -25,12 +25,12 @@ public class UserProfileService {
         return "Profile visibility successfully set to " + (Integer.parseInt(details.getValue()) == 0 ? "Public" : "Private");
     }
 
-    public List<UserProfile> searchPublicProfiles(String searchCriteria) {
+    public List<UserProfile> searchProfiles(String searchCriteria) {
         List<UserProfile> allUserProfiles = userProfileRepository.findAll();
         List<UserProfile> foundUsers = new ArrayList<UserProfile>();
 
         for(UserProfile el : allUserProfiles) {
-            if(el.getName().toLowerCase().contains(searchCriteria.toLowerCase()) && el.getVisibility() == 0)
+            if(el.getUsername().toLowerCase().contains(searchCriteria.toLowerCase()))
                 foundUsers.add(el);
         }
 
