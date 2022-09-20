@@ -112,4 +112,15 @@ public class FollowshipService {
 
         return users;
     }
+
+    public List<UserProfile> findAllPendingFollows(String target) {
+        List<Followship> followships = followshipRepository.findByTargetAndApproved(target, 0);
+        List<UserProfile> users = new ArrayList<UserProfile>();
+        
+        for(Followship followship: followships) {
+            users.add(userProfileRepository.findByUsername(followship.getInitiator()));
+        }
+
+        return users;
+    }
 }
