@@ -9,6 +9,7 @@ import com.profilemanagement.model.Followship;
 
 public interface FollowshipRepository extends JpaRepository<Followship, Integer>{
     List<Followship> findByInitiator(String initiator);
+    List<Followship> findByInitiatorAndApproved(String initiator, int visibility);
     List<Followship> findByTarget(String target);
     //Optional<Followship> findById(Integer id);
     Followship findByInitiatorAndTarget(String initiator, String target);
