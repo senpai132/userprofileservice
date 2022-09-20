@@ -42,7 +42,8 @@ public class UserProfileMapper implements MapperInterface<UserProfile, UserProfi
         dto.setHobbies(entity.getHobbies());
         dto.setSkills(entity.getSkills());
         dto.setWorkExperience(entity.getWorkExperience());
-        
+        dto.setVisibility(entity.getVisibility());
+
         return dto;
     }
 
