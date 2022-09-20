@@ -103,7 +103,7 @@ public class FollowshipService {
     }
 
     public List<UserProfile> findAllFollowedUsers(String initiator) {
-        List<Followship> followships = followshipRepository.findByInitiator(initiator);
+        List<Followship> followships = followshipRepository.findByInitiatorAndApproved(initiator, 1);
         List<UserProfile> users = new ArrayList<UserProfile>();
         
         for(Followship followship: followships) {
