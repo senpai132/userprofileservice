@@ -57,6 +57,12 @@ public class FollowshipController {
             HttpStatus.OK);        
     }
 
+    @GetMapping("/getallpending/{initiator}")
+    public ResponseEntity<List<UserProfileDTO>> returnPending(@PathVariable String initiator) {         
+        return new ResponseEntity<>(userProfileMapper.toDtoList(followshipService.findAllPendingFollows(initiator)), 
+            HttpStatus.OK);        
+    }
+
     @GetMapping("/findallfollowedusernames/{username}")
     public ResponseEntity<List<String>> findAllPublicProfiles(@PathVariable String username) {
         List<UserProfile> users = followshipService.findAllFollowedUsers(username);

@@ -13,6 +13,7 @@ public class UserProfileDTO {
     public Date birthDate;
     public String education;
     public String workExperience;
+    public int visibility;
     
     public String skills;
     public String hobbies;
@@ -116,5 +117,13 @@ public class UserProfileDTO {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public int getVisibility() {
+        return visibility;
+    }
+
+    public void setVisibility(int visibility) {
+        this.visibility = visibility;
     }
 }
