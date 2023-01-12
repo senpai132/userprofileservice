@@ -53,7 +53,7 @@ public class FollowshipController {
 
     @GetMapping("/getfollowed/{initiator}")
     public ResponseEntity<List<UserProfileDTO>> returnFollowedUsers(@PathVariable String initiator) {         
-        return new ResponseEntity<>(userProfileMapper.toDtoList(followshipService.findAllFollowedUsers(initiator)), 
+        return new ResponseEntity<>(userProfileMapper.toDtoList(followshipService.findAllConnectedUsers(initiator)),
             HttpStatus.OK);        
     }
 
