@@ -14,7 +14,7 @@ import com.profilemanagement.repositories.UserProfileRepository;
 public class UserProfileService {
     @Autowired
     private UserProfileRepository userProfileRepository;
-    
+
     public String manageProfileVisibility(String username, ProfileDetailsDTO details) {
         UserProfile userProfile = userProfileRepository.findByUsername(username);
 
@@ -30,7 +30,7 @@ public class UserProfileService {
         List<UserProfile> foundUsers = new ArrayList<UserProfile>();
 
         for(UserProfile el : allUserProfiles) {
-            if(el.getUsername().toLowerCase().contains(searchCriteria.toLowerCase()))
+            if(el.getUsername().toLowerCase().equals(searchCriteria.toLowerCase()))
                 foundUsers.add(el);
         }
 
@@ -42,7 +42,7 @@ public class UserProfileService {
         List<UserProfile> foundUsers = new ArrayList<UserProfile>();
 
         for(UserProfile el : allUserProfiles) {
-            if(el.getUsername().toLowerCase().contains(searchCriteria.toLowerCase()) && el.getVisibility()==0)
+            if(el.getUsername().toLowerCase().equals(searchCriteria.toLowerCase()) && el.getVisibility()==0)
                 foundUsers.add(el);
         }
 
@@ -74,8 +74,8 @@ public class UserProfileService {
         UserProfile userProfile = userProfileRepository.findByUsername(username);
 
         if(!username.equals(updatedUserProfile.getUsername()) &&
-            (userProfileRepository.findByUsername(updatedUserProfile.getUsername()) != null)) {
-                return "Error: Username already exists";
+                (userProfileRepository.findByUsername(updatedUserProfile.getUsername()) != null)) {
+            return "Error: Username already exists";
         }
 
         userProfile.setUsername(updatedUserProfile.getUsername());

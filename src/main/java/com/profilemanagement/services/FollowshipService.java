@@ -35,10 +35,13 @@ public class FollowshipService {
         if(followship != null) {
             followshipRepository.delete(followship);
         }
-        
+        Followship follower = followshipRepository.findByInitiatorAndTarget(username_target, username_initiator);
+        if(follower != null) {
+            followshipRepository.delete(follower);
+        }
         blockRegistryRepository.save(block);
 
-        return "User " + username_target + " successfully blocked."; 
+        return "User " + username_target + " successfully blocked.";
     }
 
     public String unblockUser(String initiator, String target) {
@@ -73,7 +76,7 @@ public class FollowshipService {
         followship.setTarget(username_target);
         //0 je public visibility
         followship.setApproved(userProfileRepository.findByUsername(username_target).getVisibility() == 0 ? 1 : 0);
-        
+
         followshipRepository.save(followship);
 
         return "Follow " + (userProfileRepository.findByUsername(username_target).getVisibility() == 0 ? "Successful" : "Pending");
@@ -105,7 +108,7 @@ public class FollowshipService {
     public List<UserProfile> findAllFollowedUsers(String initiator) {
         List<Followship> followships = followshipRepository.findByInitiatorAndApproved(initiator, 1);
         List<UserProfile> users = new ArrayList<UserProfile>();
-        
+
         for(Followship followship: followships) {
             users.add(userProfileRepository.findByUsername(followship.getTarget()));
         }
@@ -113,14 +116,38 @@ public class FollowshipService {
         return users;
     }
 
+    public List<UserProfile> findAllConnectedUsers(String initiator) {
+        List<Followship> followships = followshipRepository.findByInitiatorAndApproved(initiator, 1);
+        List<Followship> followedBy = followshipRepository.findByTargetAndApproved(initiator, 1);
+        List<UserProfile> users = new ArrayList<UserProfile>();
+
+        for(Followship followship: followships) {
+            users.add(userProfileRepository.findByUsername(followship.getTarget()));
+        }
+
+        for(Followship followship: followedBy) {
+            boolean isFollower = false;
+            for(UserProfile profile : users) {
+                if (followship.getInitiator().equals(profile.getUsername())) {
+                    isFollower = true;
+                    break;
+                }
+            }
+            if (!isFollower) {
+                users.add(userProfileRepository.findByUsername(followship.getInitiator()));
+            }
+        }
+        return users;
+    }
     public List<UserProfile> findAllPendingFollows(String target) {
         List<Followship> followships = followshipRepository.findByTargetAndApproved(target, 0);
         List<UserProfile> users = new ArrayList<UserProfile>();
-        
+
         for(Followship followship: followships) {
             users.add(userProfileRepository.findByUsername(followship.getInitiator()));
         }
 
         return users;
     }
+
 }
