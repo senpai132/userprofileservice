@@ -7,6 +7,14 @@ public class FollowResponseDTO {
     public int notifyOnMessage;
     public int notifyOnPost;
 
+    public FollowResponseDTO(String initiator, String target, int response, int notifyOnMessage, int notifyOnPost) {
+        this.initiator = initiator;
+        this.target = target;
+        this.response = response;
+        this.notifyOnMessage = notifyOnMessage;
+        this.notifyOnPost = notifyOnPost;
+    }
+
     public FollowResponseDTO() {
 
     }
@@ -27,11 +35,11 @@ public class FollowResponseDTO {
         this.notifyOnPost = notifyOnPost;
     }
     
-    public String getIntiator() {
+    public String getInitiator() {
         return initiator;
     }
 
-    public void setIntiator(String intiator) {
+    public void setInitiator(String intiator) {
         this.initiator = intiator;
     }
 

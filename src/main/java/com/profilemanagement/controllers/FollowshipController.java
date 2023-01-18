@@ -81,7 +81,7 @@ public class FollowshipController {
 
     @PutMapping("/followresponse")
     public ResponseEntity<String> FollowResponse(@RequestBody FollowResponseDTO dto) {         
-        return new ResponseEntity<>(followshipService.AnswerFollowRequest(dto.getIntiator(), 
+        return new ResponseEntity<>(followshipService.AnswerFollowRequest(dto.getInitiator(),
             dto.getTarget(), dto.getResponse()), HttpStatus.OK);        
     }
 

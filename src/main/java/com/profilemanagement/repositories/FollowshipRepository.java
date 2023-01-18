@@ -14,4 +14,6 @@ public interface FollowshipRepository extends JpaRepository<Followship, Integer>
     //Optional<Followship> findById(Integer id);
     Followship findByInitiatorAndTarget(String initiator, String target);
     List<Followship> findByTargetAndApproved(String target, int visibility);
+    List<Followship> findByTargetAndNotifyOnPost(String target, int notifyOnPost);
+    Followship findByInitiatorAndTargetAndNotifyOnMessage(String initiator, String target, int notifyOnMessage);
 }
