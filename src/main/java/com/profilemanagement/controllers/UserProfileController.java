@@ -2,6 +2,8 @@ package com.profilemanagement.controllers;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,27 +30,32 @@ public class UserProfileController {
     private UserProfileService userProfileService;
 
     private UserProfileMapper userProfileMapper;
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserProfileController.class);
     
     @GetMapping("/find/{searchCriteria}")
-    public ResponseEntity<List<UserProfileDTO>> findAllProfiles(@PathVariable String searchCriteria) {         
+    public ResponseEntity<List<UserProfileDTO>> findAllProfiles(@PathVariable String searchCriteria) {
+        LOGGER.info("Finding users that fit criteria " + searchCriteria);
         return new ResponseEntity<List<UserProfileDTO>>(userProfileMapper.toDtoList(
             userProfileService.searchProfiles(searchCriteria)), HttpStatus.OK);
     }
 
     @GetMapping("/findallpublicusers")
-    public ResponseEntity<List<String>> findAllPublicProfiles() {         
+    public ResponseEntity<List<String>> findAllPublicProfiles() {
+        LOGGER.info("Finding all public user profiles");
         return new ResponseEntity<List<String>>((userProfileService.retreiveAllPublicProfiles()), HttpStatus.OK);
     }
 
     @GetMapping("/findpubliconly/{searchCriteria}")
-    public ResponseEntity<List<UserProfileDTO>> findPublicProfiles(@PathVariable String searchCriteria) {         
+    public ResponseEntity<List<UserProfileDTO>> findPublicProfiles(@PathVariable String searchCriteria) {
+        LOGGER.info("Finding public users that fit criteria " + searchCriteria);
         return new ResponseEntity<List<UserProfileDTO>>(userProfileMapper.toDtoList(
             userProfileService.searchPublicProfiles(searchCriteria)), HttpStatus.OK);
     }
 
     @PostMapping("/add")
     public ResponseEntity<String> addUserProfile(@RequestBody UserProfileDTO userProfileDTO) {
-        
+        LOGGER.info("Adding new user profile " + userProfileDTO.username);
         UserProfile userProfile = userProfileMapper.toEntity(userProfileDTO);        
 
         return new ResponseEntity<>(userProfileService.addUserProfile(userProfile), HttpStatus.CREATED);        
@@ -56,35 +63,40 @@ public class UserProfileController {
 
     @PutMapping("/edit/{username}")
     public ResponseEntity<String> editUserProfile(@PathVariable String username, @RequestBody UserProfileDTO userProfileDTO) {
-        
+        LOGGER.info("Editing user profile with username " + userProfileDTO.username);
         UserProfile userProfile = userProfileMapper.toEntity(userProfileDTO);        
 
         return new ResponseEntity<>(userProfileService.editUserProfile(username, userProfile), HttpStatus.OK);         
     }
 
     @PutMapping("/editvisibility/{username}")
-    public ResponseEntity<String> editUserVisibility(@PathVariable String username, @RequestBody ProfileDetailsDTO dto) {       
-        return new ResponseEntity<>(userProfileService.manageProfileVisibility(username, dto), HttpStatus.OK);        
+    public ResponseEntity<String> editUserVisibility(@PathVariable String username, @RequestBody ProfileDetailsDTO dto) {
+        LOGGER.info("Changing user visibility status for profile with username " + username);
+        return new ResponseEntity<>(userProfileService.manageProfileVisibility(username, dto), HttpStatus.OK);
     }
 
     @PutMapping("/editexperience/{username}")
-    public ResponseEntity<String> editUserExperience(@PathVariable String username, @RequestBody ProfileDetailsDTO dto) {       
-        return new ResponseEntity<>(userProfileService.editUserExperience(username, dto), HttpStatus.OK);        
+    public ResponseEntity<String> editUserExperience(@PathVariable String username, @RequestBody ProfileDetailsDTO dto) {
+        LOGGER.info("Editing user profile experience for profile with username " + username);
+        return new ResponseEntity<>(userProfileService.editUserExperience(username, dto), HttpStatus.OK);
     }
 
     @PutMapping("/editeducation/{username}")
-    public ResponseEntity<String> editUserEducation(@PathVariable String username, @RequestBody ProfileDetailsDTO dto) {       
-        return new ResponseEntity<>(userProfileService.editUserEducation(username, dto), HttpStatus.OK);        
+    public ResponseEntity<String> editUserEducation(@PathVariable String username, @RequestBody ProfileDetailsDTO dto) {
+        LOGGER.info("Editing user profile education for profile with username " + username);
+        return new ResponseEntity<>(userProfileService.editUserEducation(username, dto), HttpStatus.OK);
     }
 
     @PutMapping("/editskills/{username}")
-    public ResponseEntity<String> editUserSkills(@PathVariable String username, @RequestBody ProfileDetailsDTO dto) {       
-        return new ResponseEntity<>(userProfileService.editUserSkills(username, dto), HttpStatus.OK);        
+    public ResponseEntity<String> editUserSkills(@PathVariable String username, @RequestBody ProfileDetailsDTO dto) {
+        LOGGER.info("Editing user profile skills for profile with username " + username);
+        return new ResponseEntity<>(userProfileService.editUserSkills(username, dto), HttpStatus.OK);
     }
 
     @PutMapping("/edithobbies/{username}")
-    public ResponseEntity<String> editUserHobbies(@PathVariable String username, @RequestBody ProfileDetailsDTO dto) {       
-        return new ResponseEntity<>(userProfileService.editUserHobbies(username, dto), HttpStatus.OK);        
+    public ResponseEntity<String> editUserHobbies(@PathVariable String username, @RequestBody ProfileDetailsDTO dto) {
+        LOGGER.info("Editing user profile hobbies for profile with username " + username);
+        return new ResponseEntity<>(userProfileService.editUserHobbies(username, dto), HttpStatus.OK);
     }
 
     public UserProfileController() {
