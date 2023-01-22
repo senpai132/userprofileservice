@@ -28,7 +28,7 @@ jobs:
     - name: Build and Push Docker Image
       uses: mr-smithers-excellent/docker-build-push@v4
       with:
-        image: senpai132/jobopeningservice
+        image: senpai132/profileservice
         registry: docker.io
         tags: latest
         username: ${{ secrets.DOCKER_USERNAME }}
